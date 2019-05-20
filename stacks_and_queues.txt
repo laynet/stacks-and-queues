@@ -1,0 +1,125 @@
+1) What is the main difference between a stack and a queue
+-Stacks use LIFO and queues use FIFO
+
+2) What are the similarities between stacks and queues?
+-they are both abstract data structures
+
+3) Imagine you are an engineer tasked with implementing the UNDO and REDO options in a word processor such as Microsoft Word. Which data structure would you use for each option and why?
+- I would use LIFO for undo, as it would revert to the last position in the stack before the item being undid was added.(sorry that sentence is so bad i'm very tired)
+- I would use FIFO for redo because we would be completely removing the item and replacing it with a new item that would come next.
+
+
+Programming questions
+
+1) Given a string, reverse it using a stack. For example, the string "Bloc!" should be converted to "!colB".
+
+FUNCTION REVERSE(original)
+  INIT a new stack
+  FOR each character in original
+    CALL stack.push WITH character
+  END FOR
+  INIT reversed to empty string
+  WHILE stack is not empty
+    CALL stack.pop RETURNING character
+    APPEND character to reversed
+  END WHILE
+  RETURN reversed
+END FUNCTION
+
+function reverse(str) {
+    var stack = [];
+    for (var i = 0; i < str.length; i++) {
+        stack.push(str[i]);
+    }
+    var reverseStr = '';
+    while (stack.length > 0) {
+        reverseStr += stack.pop();
+    }
+    return reverseStr;
+}
+console.log(reverse('Bloc!'));
+
+2) Implement the pop method of a stack using one queue. Make a FIFO data structure mirror the functionality of a LIFO data structure. Since the internal list is not the same as defined in the checkpoint, it may help to rewrite the pseudocode first.
+
+FUNCTION push(element)
+  INCREMENT the stack position index by 1
+  SET element to the location at the stack position index
+END FUNCTION
+
+FUNCTION pop
+  SET the element at the stack position index to temp
+  DECREMENT the stack position index by 1
+  RETURN temp
+END FUNCTION
+
+class Stack {
+    constructor(){
+     this.pop = function(queue){
+       var newQueue = [];
+       var itemToRemove = [];
+       
+       for(var i=0;i<queue.length; i++){
+         if(i==queue.length-1){
+           itemToRemove.push(queue[i]);
+         }else{
+           newQueue.push(queue[i]);
+         }
+       }
+       
+       return itemToRemove;   
+       
+     }
+   }
+}
+
+var stack = new Stack();
+console.log(stack.pop('Layne'))
+
+3) Implement the enqueue and dequeue methods defined in the checkpoint inside your own Queue class.
+
+FUNCTION enqueue(element)
+  APPEND element to the end of the list
+END FUNCTION
+
+FUNCTION dequeue 
+  REMOVE FIRST element of list from list
+END FUNCTION
+
+class Queue{
+  constructor() {
+    this.items = []
+  }
+  enqueue(element) {
+   return this.items.push(element)
+  }
+  dequeue() {
+   return this.items.shift()
+  }
+  printQueue() { 
+    var str = ""; 
+    for(var i = 0; i < this.items.length; i++) 
+        str += this.items[i] +" "; 
+    return str; 
+}
+}
+
+
+var queue = new Queue(); 
+  
+
+queue.enqueue(10); 
+queue.enqueue(20); 
+queue.enqueue(30); 
+queue.enqueue(40); 
+queue.enqueue(50); 
+queue.enqueue(60); 
+  
+
+  
+console.log(queue.dequeue()); 
+  
+
+console.log(queue.enqueue());
+  
+
+console.log(queue.printQueue()); 
